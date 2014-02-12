@@ -1,4 +1,4 @@
 PhoneBookSearcher
 =================
 
-Applications for searching and displaying telephone numbers
+Application for searching and displaying telephone numbers
