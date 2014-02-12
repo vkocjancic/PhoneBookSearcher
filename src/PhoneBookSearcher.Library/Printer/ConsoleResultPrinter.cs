@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace PhoneBookSearcher.Library.Printer {
     
+    /// <summary>
+    /// Class used to print search results to console window
+    /// </summary>
     public class ConsoleResultPrinter : IResultPrinter {
 
         #region IResultPrinter methods
 
+        /// <summary>
+        /// Prints search results to console window
+        /// </summary>
+        /// <param name="results">Search results</param>
         public void Print( List<PhoneBookSearchResult> results ) {
             Console.WriteLine( "Found {0} result(s)", results.Count );
             if (0 != results.Count)

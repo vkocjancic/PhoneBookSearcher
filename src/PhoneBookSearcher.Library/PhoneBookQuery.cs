@@ -7,11 +7,18 @@ using System.Threading.Tasks;
 namespace PhoneBookSearcher.Library {
 
     /// <summary>
-    /// Class that obtains query data from arguments
+    /// Data-type class used to store query information
     /// </summary>
     public class PhoneBookQuery {
 
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets person's name to search for
+        /// </summary>
         public string PersonName { get; set; }
+
+        #endregion
 
     }
 

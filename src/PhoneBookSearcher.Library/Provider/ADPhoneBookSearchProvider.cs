@@ -8,17 +8,34 @@ using System.Threading.Tasks;
 
 namespace PhoneBookSearcher.Library.Provider {
 
+    /// <summary>
+    /// Class representing Active directory implementation of PhoneBookSearchProvider
+    /// </summary>
     public class ADPhoneBookSearchProvider : IPhoneBookSearchProvider {
 
         #region Properties
 
+        /// <summary>
+        /// Gets LDAP configuration
+        /// </summary>
         public ADConfiguration Configuration { get; private set; }
+
+        /// <summary>
+        /// Gets Active directory's root entry
+        /// </summary>
         public DirectoryEntry RootEntry { get; private set; }
 
         #endregion
 
         #region Constructors
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="config">LDAP configuration object.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <remarks>Username and Password fields in LDAP configuration can be null (default), 
+        /// if user running an application has enough priviliges to execute queries on AD.</remarks>
         public ADPhoneBookSearchProvider( ADConfiguration config ) {
             if (null == config)
                 throw new ArgumentNullException( "AD configuration" );
@@ -32,6 +49,12 @@ namespace PhoneBookSearcher.Library.Provider {
 
         #region IPhoneBookSearchProvider methods
 
+        /// <summary>
+        /// Gets all user objects in Active directory that contain query in 'cn', or 'sAMAccountName' fields
+        /// </summary>
+        /// <param name="query">Query to search for</param>
+        /// <returns>List of all user objects in objects in Active directory that contain query in 'cn', or 
+        /// 'sAMAccountName' fields</returns>
         public List<PhoneBookSearchResult> GetEntriesByName( string query ) {
             if (string.IsNullOrWhiteSpace( query ))
                 throw new ArgumentNullException( "Query" );
