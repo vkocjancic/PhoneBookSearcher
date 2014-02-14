@@ -14,6 +14,11 @@ namespace PhoneBookSearcher.Library {
         #region Properties
 
         /// <summary>
+        /// Gets or sets person's department
+        /// </summary>
+        public string Department { get; set; }
+
+        /// <summary>
         /// Gets or sets person's full name
         /// </summary>
         public string FullName { get; set; }

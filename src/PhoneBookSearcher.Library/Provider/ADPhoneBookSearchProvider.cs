@@ -58,7 +58,21 @@ namespace PhoneBookSearcher.Library.Provider {
         public List<PhoneBookSearchResult> GetEntriesByName( string query ) {
             if (string.IsNullOrWhiteSpace( query ))
                 throw new ArgumentNullException( "Query" );
-            var searcher = SetupSearcherForQuery( this.RootEntry, query );
+            var searcher = SetupNameSearcherForQuery( this.RootEntry, query );
+            var results = searcher.FindAll();
+            return PropagateDirectoryEntryResults( results );
+        }
+
+        /// <summary>
+        /// Gets all user objects in Active directory that are in department that contains query
+        /// </summary>
+        /// <param name="query">Query to search for</param>
+        /// <returns>List of all user objects in objects in Active directory that contain query in 'department' field 
+        /// </returns>
+        public List<PhoneBookSearchResult> GetEntriesByDepartment( string query ) {
+            if (string.IsNullOrWhiteSpace( query ))
+                throw new ArgumentNullException( "Query" );
+            var searcher = SetupDepartmentSearcherForQuery( this.RootEntry, query );
             var results = searcher.FindAll();
             return PropagateDirectoryEntryResults( results );
         }
@@ -77,10 +91,18 @@ namespace PhoneBookSearcher.Library.Provider {
             return entry;
         }
 
-        private DirectorySearcher SetupSearcherForQuery( DirectoryEntry deRoot, string query ) {
+        private DirectorySearcher SetupNameSearcherForQuery( DirectoryEntry deRoot, string query ) {
             var searcher = new DirectorySearcher( deRoot );
-            searcher.PropertiesToLoad.AddRange( new string[] { "cn", "mail", "telephoneNumber" } );
+            searcher.PropertiesToLoad.AddRange( new string[] { "cn", "department", "mail", "telephoneNumber" } );
             searcher.Filter = string.Format( "(&(objectClass=user)(| (cn=*{0}*)(sAMAccountName=*{0}*)))",
+                query );
+            return searcher;
+        }
+
+        private DirectorySearcher SetupDepartmentSearcherForQuery( DirectoryEntry deRoot, string query ) {
+            var searcher = new DirectorySearcher( deRoot );
+            searcher.PropertiesToLoad.AddRange( new string[] { "cn", "department", "mail", "telephoneNumber" } );
+            searcher.Filter = string.Format( "(&(objectClass=user)(department=*{0}*))",
                 query );
             return searcher;
         }
@@ -91,6 +113,7 @@ namespace PhoneBookSearcher.Library.Provider {
                 if (!IsResultValid( result ))
                     continue;
                 resultsPB.Add( new PhoneBookSearchResult() {
+                    Department = result.Properties["department"][0].ToString(),
                     FullName = result.Properties["cn"][0].ToString(),
                     MailAddress = result.Properties["mail"][0].ToString(),
                     TelephoneNumber = result.Properties["telephoneNumber"][0].ToString()
@@ -104,11 +127,14 @@ namespace PhoneBookSearcher.Library.Provider {
             if ((!result.Properties.Contains( "cn" )) ||
                 (0 == result.Properties["cn"].Count))
                 fValid = false;
-            if ((!result.Properties.Contains( "telephoneNumber" )) ||
-                (0 == result.Properties["telephoneNumber"].Count))
+            if ((!result.Properties.Contains( "department" )) ||
+                (0 == result.Properties["department"].Count))
                 fValid = false;
             if ((!result.Properties.Contains( "mail" )) ||
                 (0 == result.Properties["mail"].Count))
+                fValid = false;
+            if ((!result.Properties.Contains( "telephoneNumber" )) ||
+                (0 == result.Properties["telephoneNumber"].Count))
                 fValid = false;
             return fValid;
         }

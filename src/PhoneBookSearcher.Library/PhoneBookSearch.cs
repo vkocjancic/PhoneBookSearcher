@@ -45,7 +45,16 @@ namespace PhoneBookSearcher.Library {
         public List<PhoneBookSearchResult> Search( PhoneBookQuery query ) {
             if (null == query)
                 throw new ArgumentNullException( "Query" );
-            return this.Provider.GetEntriesByName( query.PersonName );
+            var results = new List<PhoneBookSearchResult>();
+            switch (query.SearchType) {
+                case Enums.SearchType.Department:
+                    results = this.Provider.GetEntriesByDepartment( query.StringToSearch );
+                    break;
+                case Enums.SearchType.Name:
+                    results = this.Provider.GetEntriesByName( query.StringToSearch );
+                    break;
+            }
+            return results;
         }
 
         #endregion

@@ -44,8 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ConsolePhoneBookArgumentsHandler.cs" />
+    <Compile Include="Common\IPhoneBookArgumentsHandler.cs" />
     <Compile Include="Config\ADConfiguration.cs" />
-    <Compile Include="Printer\ConsoleResultPrinter.cs" />
+    <Compile Include="Enums\SearchType.cs" />
+    <Compile Include="Printer\ConsoleDepartmentResultPrinter.cs" />
+    <Compile Include="Printer\ConsoleNameResultPrinter.cs" />
     <Compile Include="Printer\IResultPrinter.cs" />
     <Compile Include="PhoneBookSearchResult.cs" />
     <Compile Include="PhoneBookSearch.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhoneBookSearcher.Library.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,9 +15,14 @@ namespace PhoneBookSearcher.Library {
         #region Properties
 
         /// <summary>
-        /// Gets or sets person's name to search for
+        /// Gets or sets search type
         /// </summary>
-        public string PersonName { get; set; }
+        public SearchType SearchType { get; set; }
+
+        /// <summary>
+        /// Gets or sets string to search for
+        /// </summary>
+        public string StringToSearch { get; set; }
 
         #endregion
 

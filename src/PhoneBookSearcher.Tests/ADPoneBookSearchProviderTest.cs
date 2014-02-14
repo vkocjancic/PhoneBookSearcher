@@ -39,6 +39,16 @@ namespace PhoneBookSearcher.Tests {
             provider.GetEntriesByName( null );
         }
 
+        [TestMethod]
+        [ExpectedException( typeof( ArgumentNullException ) )]
+        public void GetEntriesByDepartment_queryNull_throwsArgumentNullException() {
+            var config = new ADConfiguration() {
+                RootEntryUri = new Uri( "LDAP://mycopany.com/DC=mycopmany,DC=com" )
+            };
+            var provider = new ADPhoneBookSearchProvider( config );
+            provider.GetEntriesByName( null );
+        }
+
     }
 
 }
