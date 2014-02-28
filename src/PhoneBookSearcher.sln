@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookSearcher.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookSearcher.Console", "PhoneBookSearcher.Console\PhoneBookSearcher.Console.csproj", "{52156807-A874-4CE2-84CB-AFE89C1EAF41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookSearcher.Windows", "PhoneBookSearcher.Windows\PhoneBookSearcher.Windows.csproj", "{BF7A12CE-AD4A-424C-AFD1-699EB01A883F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{52156807-A874-4CE2-84CB-AFE89C1EAF41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52156807-A874-4CE2-84CB-AFE89C1EAF41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52156807-A874-4CE2-84CB-AFE89C1EAF41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF7A12CE-AD4A-424C-AFD1-699EB01A883F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF7A12CE-AD4A-424C-AFD1-699EB01A883F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF7A12CE-AD4A-424C-AFD1-699EB01A883F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF7A12CE-AD4A-424C-AFD1-699EB01A883F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
