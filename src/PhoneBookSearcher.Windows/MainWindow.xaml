@@ -20,9 +20,9 @@
                    AlternationCount="2" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding FullName}"/>
-                    <GridViewColumn Header="E-mail" DisplayMemberBinding="{Binding MailAddress}"/>
-                    <GridViewColumn Header="Telephone" DisplayMemberBinding="{Binding TelephoneNumber}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding FullName}" Width="175"/>
+                    <GridViewColumn Header="E-mail" DisplayMemberBinding="{Binding MailAddress}" Width="175"/>
+                    <GridViewColumn Header="Telephone" DisplayMemberBinding="{Binding TelephoneNumber}" Width="80"/>
                 </GridView>
             </ListView.View>
         </ListView>
