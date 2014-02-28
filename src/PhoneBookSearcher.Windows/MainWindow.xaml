@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Library="clr-namespace:PhoneBookSearcher.Library;assembly=PhoneBookSearcher.Library" x:Class="PhoneBookSearcher.Windows.MainWindow"
         Title="Phone book searcher" Height="350" Width="525"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}" FocusManager.FocusedElement="{Binding ElementName=tbSearch}" Icon="Icons/phone.ico" ResizeMode="CanMinimize" Closing="Window_Closing" StateChanged="Window_StateChanged" IsVisibleChanged="Window_IsVisibleChanged">
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" FocusManager.FocusedElement="{Binding ElementName=tbSearch}" Icon="Icons/phone.ico" ResizeMode="CanMinimize" Closing="Window_Closing" StateChanged="Window_StateChanged" IsVisibleChanged="Window_IsVisibleChanged" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
             <Style TargetType="ListViewItem">
