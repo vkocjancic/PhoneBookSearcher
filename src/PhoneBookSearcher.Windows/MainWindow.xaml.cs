@@ -27,6 +27,8 @@ namespace PhoneBookSearcher.Windows {
         #region Declarations
 
         private System.Windows.Forms.NotifyIcon m_iconNotify;
+        private ADConfiguration m_config;
+        private PhoneBookSearch m_searcher;
 
         #endregion
 
@@ -38,6 +40,7 @@ namespace PhoneBookSearcher.Windows {
 
         public MainWindow() {
             this.SearchResults = new ObservableCollection<PhoneBookSearchResult>();
+            InitializeSearchComponents();
             InitializeTrayIcon();
             InitializeComponent();
         }
@@ -45,19 +48,18 @@ namespace PhoneBookSearcher.Windows {
         #region btnSearch event handlers
 
         private void btnSearch_Click( object sender, RoutedEventArgs e ) {
+            CleanUpSearchResults();
             lvResults.Visibility = System.Windows.Visibility.Visible;
-            var config = new ADConfiguration() {
-                RootEntryUri = new Uri( Settings.Default.AdDirectoryEntry )
-            };
             var query = new PhoneBookQuery() {
                 SearchType = Library.Enums.SearchType.Name,
                 StringToSearch = tbSearch.Text
             };
-            var searcher = new PhoneBookSearch( new ADPhoneBookSearchProvider( config ) );
-            var results = searcher.Search( query );
+            var results = m_searcher.Search( query );
             this.SearchResults = new ObservableCollection<PhoneBookSearchResult>( 
                 results.OrderBy( o => o.FullName ).ToList() );
             lvResults.ItemsSource = this.SearchResults;
+            results.Clear();
+            results = null;
         }
 
         #endregion
@@ -104,6 +106,13 @@ namespace PhoneBookSearcher.Windows {
 
         #region Private methods
 
+        private void InitializeSearchComponents() {
+            m_config = new ADConfiguration() {
+                RootEntryUri = new Uri( Settings.Default.AdDirectoryEntry )
+            };
+            m_searcher = new PhoneBookSearch( new ADPhoneBookSearchProvider( m_config ) );
+        }
+
         private void InitializeTrayIcon() {
             m_iconNotify = new System.Windows.Forms.NotifyIcon();
             m_iconNotify.BalloonTipText = "Application has been minimized. Double-click tray icon to restore.";
@@ -118,6 +127,13 @@ namespace PhoneBookSearcher.Windows {
         private void ShowHideTrayIcon() {
             if (null != m_iconNotify)
                 m_iconNotify.Visible = (!IsVisible);
+        }
+
+        private void CleanUpSearchResults() {
+            if (null != this.SearchResults) {
+                this.SearchResults.Clear();
+                this.SearchResults = null;
+            }
         }
 
         #endregion
