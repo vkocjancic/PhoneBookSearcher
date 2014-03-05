@@ -50,14 +50,12 @@ namespace PhoneBookSearcher.Windows {
         private void btnSearch_Click( object sender, RoutedEventArgs e ) {
             CleanUpSearchResults();
             lvResults.Visibility = System.Windows.Visibility.Visible;
-            var query = new PhoneBookQuery() {
-                SearchType = Library.Enums.SearchType.Name,
-                StringToSearch = tbSearch.Text
-            };
-            var results = m_searcher.Search( query );
-            this.SearchResults = new ObservableCollection<PhoneBookSearchResult>( 
-                results.OrderBy( o => o.FullName ).ToList() );
-            lvResults.ItemsSource = this.SearchResults;
+            var type = GetSearchTypeFromSelection();
+            var results = TriggerSearchForType( type );
+            ApplySortOrder( ref results, type );
+            BindResultsToListView( lvResults, results );           
+            HandleListViewGroupingsForType( lvResults, type );
+            // clean up temporary data
             results.Clear();
             results = null;
         }
@@ -134,6 +132,43 @@ namespace PhoneBookSearcher.Windows {
                 this.SearchResults.Clear();
                 this.SearchResults = null;
             }
+        }
+
+        private Library.Enums.SearchType GetSearchTypeFromSelection() {
+            var type = Library.Enums.SearchType.Name;
+            if (rbtnDepartment.IsChecked.Value)
+                type = Library.Enums.SearchType.Department;
+            return type;
+        }
+
+        private List<PhoneBookSearchResult> TriggerSearchForType( Library.Enums.SearchType type ) {
+            var query = new PhoneBookQuery() {
+                SearchType = type,
+                StringToSearch = tbSearch.Text
+            };
+            return m_searcher.Search( query );
+        }
+
+        private void ApplySortOrder( ref List<PhoneBookSearchResult> results, Library.Enums.SearchType type ) {
+            if (Library.Enums.SearchType.Department == type)
+                results = results.OrderBy( o => o.Department ).ThenBy( o => o.FullName ).ToList();
+            else
+                results = results.OrderBy( o => o.FullName ).ToList();
+        }
+
+        private void BindResultsToListView( ListView lv, List<PhoneBookSearchResult> results ) {
+            this.SearchResults = new ObservableCollection<PhoneBookSearchResult>( results );
+            lv.ItemsSource = this.SearchResults;
+        }
+
+        private void HandleListViewGroupingsForType( ListView lv, Library.Enums.SearchType type ) {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView( lv.ItemsSource );
+            if (Library.Enums.SearchType.Department == type) {
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription( "Department" );
+                view.GroupDescriptions.Add( groupDescription );
+            }
+            else
+                view.GroupDescriptions.Clear();
         }
 
         #endregion
