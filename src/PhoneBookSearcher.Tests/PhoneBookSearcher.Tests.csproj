@@ -53,10 +53,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DepartmentADPhoneBookSearchProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PhoneBookSearchTest.cs" />
-    <Compile Include="ADPoneBookSearchProviderTest.cs" />
     <Compile Include="ConsolePhoneBookArgumentsHandlerTest.cs" />
+    <Compile Include="NameADPhoneBookSearchProviderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PhoneBookSearcher.Library\PhoneBookSearcher.Library.csproj">

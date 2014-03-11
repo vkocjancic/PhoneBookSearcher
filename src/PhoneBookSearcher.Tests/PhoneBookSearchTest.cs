@@ -42,16 +42,14 @@ namespace PhoneBookSearcher.Tests {
             List<PhoneBookSearchResult> expected = new List<PhoneBookSearchResult>();
             expected.Add( new PhoneBookSearchResult() );
             var provider = new Mock<IPhoneBookSearchProvider>();
-            provider.Setup( p => p.GetEntriesByName( It.IsAny<string>() ) ).Returns( expected );
-            provider.Setup( p => p.GetEntriesByDepartment( It.IsAny<string>() ) ).Returns( expected );
+            provider.Setup( p => p.GetEntriesForQuery( It.IsAny<string>() ) ).Returns( expected );
             var search = new PhoneBookSearch( provider.Object );
             var query = new PhoneBookQuery() { 
                 SearchType = Library.Enums.SearchType.Name,
                 StringToSearch = "test" 
             };
             var results = search.Search( query );
-            provider.Verify( p => p.GetEntriesByName( "test" ), Times.Once() );
-            provider.Verify( p => p.GetEntriesByDepartment( "test" ), Times.Never() );
+            provider.Verify( p => p.GetEntriesForQuery( "test" ), Times.Once() );
             Assert.AreEqual( expected.Count, results.Count );
         }
 
@@ -60,16 +58,14 @@ namespace PhoneBookSearcher.Tests {
             List<PhoneBookSearchResult> expected = new List<PhoneBookSearchResult>();
             expected.Add( new PhoneBookSearchResult() );
             var provider = new Mock<IPhoneBookSearchProvider>();
-            provider.Setup( p => p.GetEntriesByName( It.IsAny<string>() ) ).Returns( expected );
-            provider.Setup( p => p.GetEntriesByDepartment( It.IsAny<string>() ) ).Returns( expected );
+            provider.Setup( p => p.GetEntriesForQuery( It.IsAny<string>() ) ).Returns( expected );
             var search = new PhoneBookSearch( provider.Object );
             var query = new PhoneBookQuery() {
                 SearchType = Library.Enums.SearchType.Department,
                 StringToSearch = "test"
             };
             var results = search.Search( query );
-            provider.Verify( p => p.GetEntriesByName( "test" ), Times.Never() );
-            provider.Verify( p => p.GetEntriesByDepartment( "test" ), Times.Once() );
+            provider.Verify( p => p.GetEntriesForQuery( "test" ), Times.Once() );
             Assert.AreEqual( expected.Count, results.Count );
         }
 

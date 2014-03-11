@@ -12,18 +12,11 @@ namespace PhoneBookSearcher.Library.Provider {
     public interface IPhoneBookSearchProvider {
 
         /// <summary>
-        /// Get all entries by name
+        /// Get all entries containing search query
         /// </summary>
-        /// <param name="query">Name to search for</param>
-        /// <returns>List of all results containing searched name.</returns>
-        List<PhoneBookSearchResult> GetEntriesByName( string query );
-
-        /// <summary>
-        /// Get all entries by department
-        /// </summary>
-        /// <param name="query">Department name to search for</param>
-        /// <returns>List of all employees in department.</returns>
-        List<PhoneBookSearchResult> GetEntriesByDepartment( string query );
+        /// <param name="query">Query to search for</param>
+        /// <returns>List of all results containing searched query.</returns>
+        List<PhoneBookSearchResult> GetEntriesForQuery( string query );
 
     }
 }

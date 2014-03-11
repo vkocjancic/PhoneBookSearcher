@@ -32,10 +32,14 @@ namespace PhoneBookSearcher.Console {
             var config = new ADConfiguration() {
                 RootEntryUri = new Uri( Settings.Default.AdDirectoryEntry )
             };
-            var searcher = new PhoneBookSearch( new ADPhoneBookSearchProvider( config ) );
+            var searcher = null as PhoneBookSearch;
+            if (Library.Enums.SearchType.Name == query.SearchType)
+                searcher = new PhoneBookSearch( new NameADPhoneBookSearchProvider( config ) );
+            else
+                searcher = new PhoneBookSearch( new DepartmentADPhoneBookSearchProvider( config ) );
             var results = searcher.Search( query );
             IResultPrinter printer = null;
-            if (PhoneBookSearcher.Library.Enums.SearchType.Name == query.SearchType) {
+            if (Library.Enums.SearchType.Name == query.SearchType) {
                 results = results.OrderBy( o => o.FullName ).ToList();
                 printer = new ConsoleNameResultPrinter();
             }

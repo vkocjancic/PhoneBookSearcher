@@ -53,10 +53,12 @@
     <Compile Include="Printer\IResultPrinter.cs" />
     <Compile Include="PhoneBookSearchResult.cs" />
     <Compile Include="PhoneBookSearch.cs" />
+    <Compile Include="Provider\ADPhoneBookSearchProviderBase.cs" />
+    <Compile Include="Provider\DepartmentADPhoneBookSearchProvider.cs" />
     <Compile Include="Provider\IPhoneBookSearchProvider.cs" />
-    <Compile Include="Provider\ADPhoneBookSearchProvider.cs" />
     <Compile Include="PhoneBookQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\NameADPhoneBookSearchProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

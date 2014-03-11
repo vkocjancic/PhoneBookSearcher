@@ -108,7 +108,6 @@ namespace PhoneBookSearcher.Windows {
             m_config = new ADConfiguration() {
                 RootEntryUri = new Uri( Settings.Default.AdDirectoryEntry )
             };
-            m_searcher = new PhoneBookSearch( new ADPhoneBookSearchProvider( m_config ) );
         }
 
         private void InitializeTrayIcon() {
@@ -128,6 +127,7 @@ namespace PhoneBookSearcher.Windows {
         }
 
         private void CleanUpSearchResults() {
+            m_searcher = null;
             if (null != this.SearchResults) {
                 this.SearchResults.Clear();
                 this.SearchResults = null;
@@ -146,6 +146,15 @@ namespace PhoneBookSearcher.Windows {
                 SearchType = type,
                 StringToSearch = tbSearch.Text
             };
+            switch (type) {
+                case Library.Enums.SearchType.Department:
+                    m_searcher = new PhoneBookSearch( new DepartmentADPhoneBookSearchProvider( m_config ) );
+                    break;
+                case Library.Enums.SearchType.Name:
+                default:
+                    m_searcher = new PhoneBookSearch( new NameADPhoneBookSearchProvider( m_config ) );
+                    break;
+            }
             return m_searcher.Search( query );
         }
 
