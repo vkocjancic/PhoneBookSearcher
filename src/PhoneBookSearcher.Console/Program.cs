@@ -32,20 +32,43 @@ namespace PhoneBookSearcher.Console {
             var config = new ADConfiguration() {
                 RootEntryUri = new Uri( Settings.Default.AdDirectoryEntry )
             };
-            var searcher = null as PhoneBookSearch;
-            if (Library.Enums.SearchType.Name == query.SearchType)
-                searcher = new PhoneBookSearch( new NameADPhoneBookSearchProvider( config ) );
-            else
-                searcher = new PhoneBookSearch( new DepartmentADPhoneBookSearchProvider( config ) );
+            var searcher = GenerateSearcherForQueryType(config, query.SearchType );
             var results = searcher.Search( query );
-            IResultPrinter printer = null;
-            if (Library.Enums.SearchType.Name == query.SearchType) {
-                results = results.OrderBy( o => o.FullName ).ToList();
-                printer = new ConsoleNameResultPrinter();
+            PrintResultsForSearchType( results, query.SearchType );
+        }
+
+        private static PhoneBookSearch GenerateSearcherForQueryType( 
+            ADConfiguration config, Library.Enums.SearchType type ) {
+            var searcher = null as PhoneBookSearch;
+            switch(type) {
+                case Library.Enums.SearchType.Department:
+                    searcher = new PhoneBookSearch( new DepartmentADPhoneBookSearchProvider( config ) );
+                    break;
+                case Library.Enums.SearchType.PhoneNumber:
+                    searcher = new PhoneBookSearch( new PhoneNumberADPhoneBookSearchProvider( config ) );
+                    break;
+                case Library.Enums.SearchType.Name:                   
+                default:
+                    searcher = new PhoneBookSearch( new NameADPhoneBookSearchProvider( config ) );
+                    break;
             }
-            else {
-                results = results.OrderBy( o => o.Department ).ToList();
-                printer = new ConsoleDepartmentResultPrinter();
+            return searcher;
+        }
+
+        private static void PrintResultsForSearchType( 
+            List<PhoneBookSearchResult> results, Library.Enums.SearchType type ) {
+            IResultPrinter printer = null;
+            switch (type) {
+                case Library.Enums.SearchType.Department:
+                    results = results.OrderBy(o => o.Department).ThenBy( o => o.FullName ).ToList();
+                    printer = new ConsoleDepartmentResultPrinter();
+                    break;
+                case Library.Enums.SearchType.PhoneNumber:
+                case Library.Enums.SearchType.Name:
+                default:
+                    results = results.OrderBy( o => o.FullName ).ToList();
+                    printer = new ConsoleNameResultPrinter();
+                    break;
             }
             printer.Print( results );
         }
@@ -53,6 +76,7 @@ namespace PhoneBookSearcher.Console {
         static void PrintUsage() {
             System.Console.WriteLine( "Usage: pbs [-switch] <name_to_search>" );
             System.Console.WriteLine( "Switches:\n\t-d\tsearch by department" );
+            System.Console.WriteLine( "\t-n\tsearch by number" );
         }
 
     }

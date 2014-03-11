@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PhoneBookSearcher.Library.Provider {
-    
+
     /// <summary>
-    /// Search provider for querying directory services by users name
+    /// Search provider for querying directory services by phone number
     /// </summary>
-    public class NameADPhoneBookSearchProvider : ADPhoneBookSearchProviderBase {
+    public class PhoneNumberADPhoneBookSearchProvider : ADPhoneBookSearchProviderBase {
 
         #region Constructors
 
@@ -19,7 +19,7 @@ namespace PhoneBookSearcher.Library.Provider {
         /// Construcotr
         /// </summary>
         /// <param name="config">Configuration for directory services</param>
-        public NameADPhoneBookSearchProvider( ADConfiguration config )
+        public PhoneNumberADPhoneBookSearchProvider( ADConfiguration config )
             : base( config ) {
         }
 
@@ -49,7 +49,7 @@ namespace PhoneBookSearcher.Library.Provider {
         protected override DirectorySearcher SetupSearcherForQuery( DirectoryEntry deRoot, string query ) {
             var searcher = new DirectorySearcher( deRoot );
             searcher.PropertiesToLoad.AddRange( new string[] { "cn", "department", "mail", "telephoneNumber" } );
-            searcher.Filter = string.Format( "(&(objectClass=user)(| (cn=*{0}*)(sAMAccountName=*{0}*)))",
+            searcher.Filter = string.Format( "(&(objectClass=user)(telephoneNumber=*{0}*))",
                 query );
             return searcher;
         }

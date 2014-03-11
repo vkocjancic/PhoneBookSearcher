@@ -47,6 +47,10 @@ namespace PhoneBookSearcher.Library.Common {
                 typeSearch = Enums.SearchType.Department;
                 strToSearch = string.Join( " ", this.Arguments, 1, this.Arguments.Length - 1 );
             }
+            else if (this.Arguments[0].Equals( "-n" )) {
+                typeSearch = Enums.SearchType.PhoneNumber;
+                strToSearch = string.Join( " ", this.Arguments, 1, this.Arguments.Length - 1 );
+            }
             else if (this.Arguments[0].StartsWith( "-" ))
                 throw new OperationCanceledException( "Invalid switch was provided" );
             else {

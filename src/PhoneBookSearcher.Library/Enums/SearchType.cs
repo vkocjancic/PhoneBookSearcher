@@ -11,7 +11,11 @@
         /// <summary>
         /// Search by department
         /// </summary>
-        Department
+        Department,
+        /// <summary>
+        /// Search by phone number
+        /// </summary>
+        PhoneNumber 
     };
 
 }

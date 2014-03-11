@@ -6,18 +6,18 @@ using PhoneBookSearcher.Library.Config;
 namespace PhoneBookSearcher.Tests {
 
     [TestClass]
-    public class DepartmentADPhoneBookSearchProviderTest {
+    public class PhoneNumberADPhoneBookSearchProviderTest {
 
         [TestMethod]
         [ExpectedException( typeof( ArgumentNullException ) )]
         public void Constructor_noConfig_throwsArgumentNullException() {
-            var provider = new DepartmentADPhoneBookSearchProvider( null );
+            var provider = new PhoneNumberADPhoneBookSearchProvider( null );
         }
 
         [TestMethod]
         [ExpectedException( typeof( ArgumentNullException ) )]
         public void Constructor_configSet_NoRootEntryUri_throwsArgumentNullException() {
-            var provider = new DepartmentADPhoneBookSearchProvider( new ADConfiguration() );
+            var provider = new PhoneNumberADPhoneBookSearchProvider( new ADConfiguration() );
         }
 
         [TestMethod]
@@ -25,7 +25,7 @@ namespace PhoneBookSearcher.Tests {
             var config = new ADConfiguration() {
                 RootEntryUri = new Uri( "LDAP://mycopany.com/DC=mycopmany,DC=com" )
             };
-            var provider = new DepartmentADPhoneBookSearchProvider( config );
+            var provider = new PhoneNumberADPhoneBookSearchProvider( config );
             Assert.IsNotNull( provider.Configuration );
         }
 
@@ -35,7 +35,7 @@ namespace PhoneBookSearcher.Tests {
             var config = new ADConfiguration() {
                 RootEntryUri = new Uri( "LDAP://mycopany.com/DC=mycopmany,DC=com" )
             };
-            var provider = new DepartmentADPhoneBookSearchProvider( config );
+            var provider = new PhoneNumberADPhoneBookSearchProvider( config );
             provider.GetEntriesForQuery( null );
         }
 
