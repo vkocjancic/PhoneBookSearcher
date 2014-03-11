@@ -51,6 +51,7 @@
             </ListView.GroupStyle>
         </ListView>
         <RadioButton x:Name="rbtnName" Content="Search by name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" GroupName="grpSearchType" IsChecked="True"/>
-        <RadioButton x:Name="rbtnDepartment" Content="Search by department" HorizontalAlignment="Left" Margin="134,10,0,0" VerticalAlignment="Top" GroupName="grpSearchType"/>
+        <RadioButton x:Name="rbtnDepartment" Content="Search by department" HorizontalAlignment="Left" Margin="145,10,0,0" VerticalAlignment="Top" GroupName="grpSearchType"/>
+        <RadioButton x:Name="rbtnPhoneNumber" Content="Search by phone" HorizontalAlignment="Left" Margin="309,10,0,0" VerticalAlignment="Top" GroupName="grpSearchType"/>
     </Grid>
 </Window>

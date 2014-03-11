@@ -138,6 +138,8 @@ namespace PhoneBookSearcher.Windows {
             var type = Library.Enums.SearchType.Name;
             if (rbtnDepartment.IsChecked.Value)
                 type = Library.Enums.SearchType.Department;
+            else if (rbtnPhoneNumber.IsChecked.Value)
+                type = Library.Enums.SearchType.PhoneNumber;
             return type;
         }
 
@@ -150,6 +152,9 @@ namespace PhoneBookSearcher.Windows {
                 case Library.Enums.SearchType.Department:
                     m_searcher = new PhoneBookSearch( new DepartmentADPhoneBookSearchProvider( m_config ) );
                     break;
+                case Library.Enums.SearchType.PhoneNumber:
+                    m_searcher = new PhoneBookSearch( new PhoneNumberADPhoneBookSearchProvider( m_config ) );
+                    break;
                 case Library.Enums.SearchType.Name:
                 default:
                     m_searcher = new PhoneBookSearch( new NameADPhoneBookSearchProvider( m_config ) );
@@ -159,10 +164,16 @@ namespace PhoneBookSearcher.Windows {
         }
 
         private void ApplySortOrder( ref List<PhoneBookSearchResult> results, Library.Enums.SearchType type ) {
-            if (Library.Enums.SearchType.Department == type)
-                results = results.OrderBy( o => o.Department ).ThenBy( o => o.FullName ).ToList();
-            else
-                results = results.OrderBy( o => o.FullName ).ToList();
+            switch (type) {
+                case Library.Enums.SearchType.Department:
+                    results = results.OrderBy( o => o.Department ).ThenBy( o => o.FullName ).ToList();
+                    break;
+                case Library.Enums.SearchType.PhoneNumber:
+                case Library.Enums.SearchType.Name:
+                default:
+                    results = results.OrderBy( o => o.FullName ).ToList();
+                    break;
+            }
         }
 
         private void BindResultsToListView( ListView lv, List<PhoneBookSearchResult> results ) {
