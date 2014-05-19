@@ -1,6 +1,8 @@
 ﻿using PhoneBookSearcher.Library;
 using PhoneBookSearcher.Library.Config;
+using PhoneBookSearcher.Library.Plugin;
 using PhoneBookSearcher.Library.Provider;
+using PhoneBookSearcher.PluginLibrary;
 using PhoneBookSearcher.Windows.Properties;
 using System;
 using System.Collections.Generic;
@@ -29,6 +31,7 @@ namespace PhoneBookSearcher.Windows {
         private System.Windows.Forms.NotifyIcon m_iconNotify;
         private ADConfiguration m_config;
         private PhoneBookSearch m_searcher;
+        private PluginLoader m_loader;
 
         #endregion
 
@@ -40,6 +43,7 @@ namespace PhoneBookSearcher.Windows {
 
         public MainWindow() {
             this.SearchResults = new ObservableCollection<PhoneBookSearchResult>();
+            InitializePlugins();
             InitializeSearchComponents();
             InitializeTrayIcon();
             InitializeComponent();
@@ -102,7 +106,25 @@ namespace PhoneBookSearcher.Windows {
 
         #endregion
 
+        #region lvResults event handlers
+
+        public void lvResults_MouseDoubleClick( object sender, MouseButtonEventArgs e ) {
+            var result = lvResults.ItemContainerGenerator
+                .ItemFromContainer( e.Source as DependencyObject ) as PhoneBookSearchResult;
+            if (0 != m_loader.CtiPlugins.Count) {
+                var cti = m_loader.CtiPlugins[0] as ICti;
+                cti.MakeCallTo( result.TelephoneNumber );
+            }
+        }
+
+        #endregion
+
         #region Private methods
+
+        private void InitializePlugins() {
+            m_loader = new PluginLoader();
+            m_loader.Load( System.IO.Path.Combine( Environment.CurrentDirectory, Settings.Default.PluginsDirectory ) );
+        }
 
         private void InitializeSearchComponents() {
             m_config = new ADConfiguration() {

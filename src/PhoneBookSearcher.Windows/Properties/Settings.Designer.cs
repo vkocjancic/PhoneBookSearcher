@@ -31,5 +31,14 @@ namespace PhoneBookSearcher.Windows.Properties {
                 return ((string)(this["AdDirectoryEntry"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("plugins")]
+        public string PluginsDirectory {
+            get {
+                return ((string)(this["PluginsDirectory"]));
+            }
+        }
     }
 }

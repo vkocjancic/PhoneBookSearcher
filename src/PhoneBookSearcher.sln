@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookSearcher.Console",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookSearcher.Windows", "PhoneBookSearcher.Windows\PhoneBookSearcher.Windows.csproj", "{BF7A12CE-AD4A-424C-AFD1-699EB01A883F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookSearcher.PluginLibrary", "PhoneBookSearcher.PluginLibrary\PhoneBookSearcher.PluginLibrary.csproj", "{BB3E33AE-1521-4D01-B8E5-46794906A5C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBookSearcher.SIDCTIPlugin", "PhoneBookSearcher.SIDCTIPlugin\PhoneBookSearcher.SIDCTIPlugin.csproj", "{B643D11C-E4CE-42EB-8296-82C2DB81D95B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{BF7A12CE-AD4A-424C-AFD1-699EB01A883F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF7A12CE-AD4A-424C-AFD1-699EB01A883F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF7A12CE-AD4A-424C-AFD1-699EB01A883F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB3E33AE-1521-4D01-B8E5-46794906A5C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB3E33AE-1521-4D01-B8E5-46794906A5C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB3E33AE-1521-4D01-B8E5-46794906A5C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB3E33AE-1521-4D01-B8E5-46794906A5C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B643D11C-E4CE-42EB-8296-82C2DB81D95B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B643D11C-E4CE-42EB-8296-82C2DB81D95B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B643D11C-E4CE-42EB-8296-82C2DB81D95B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B643D11C-E4CE-42EB-8296-82C2DB81D95B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

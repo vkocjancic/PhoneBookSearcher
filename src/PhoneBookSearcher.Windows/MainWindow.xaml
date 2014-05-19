@@ -25,6 +25,11 @@
                     <GridViewColumn Header="Telephone" DisplayMemberBinding="{Binding TelephoneNumber}" Width="80"/>
                 </GridView>
             </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="MouseDoubleClick" Handler="lvResults_MouseDoubleClick"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
